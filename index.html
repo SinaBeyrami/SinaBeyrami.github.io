@@ -577,7 +577,7 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
       <div class="prompt-line"><span class="path-seg">sina@research:~$</span> <span class="cmd" id="typed-whoami"></span><span class="cursor" id="boot-cursor"></span></div>
       <div class="out" id="whoami-out" hidden>
         <p><span class="accentText">Machine learning</span> across code (Software), language (NLP, LLMs), computational biology, and computational neuroscience.</p>
-        <p class="dim">Sina Beyrami — B.Sc. in Computer Engineering, Sharif University of Technology · GPA 18.49/20 · Tehran, Iran</p>
+        <p class="dim"><span class="faint">[Mohammad]</span> Sina Beyrami <span class="faint">[Aghbash]</span> — B.Sc. in Computer Engineering, Sharif University of Technology · GPA 18.49/20 · Tehran, Iran</p>
         <p>Applies ML, DL, and NLP wherever a hidden structure can be modeled and learned from: source code and commit history, genomes and chemical structures, clinical images, and EEG/brain-network signals — with retrieval-augmented methods as a recurring focus within NLP. Work spans software engineering, computational biology and medicine, and computational neuroscience, across labs at ML4SW, QCRI, TU Dresden, and IPM.</p>
 
         <div class="band">
@@ -2725,6 +2725,7 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
       if (n.kind === "core"){
         html = `<p class="detail-kicker">Center of the graph</p>
           <h3 class="detail-title">Sina Beyrami</h3>
+          <p class="detail-desc" style="margin-bottom:8px;color:var(--text-dim);font-size:.78em;">[Mohammad] Sina Beyrami [Aghbash] — published as M. S. Beyrami Aghbash</p>
           <p class="detail-desc">B.Sc. in Computer Engineering, Sharif University of Technology (GPA 18.49/20). Five connected research areas, 21 public repositories plus one private team project (AMR, at QCRI).</p>
           <div class="detail-tags"><span class="tag">Sharif University</span><span class="tag">5 areas</span><span class="tag">21 repos + 1 private</span></div>
           <a class="detail-link" href="https://github.com/SinaBeyrami" target="_blank" rel="noopener">View GitHub ↗</a>`;
@@ -3048,7 +3049,7 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
     } else if (cmd === 'whoami'){
       resultHtml = out(
         '<p><span class="accentText">Machine learning</span> across code (Software), language (NLP, LLMs), computational biology, and computational neuroscience.</p>' +
-        '<p class="dim">Sina Beyrami — B.Sc. in Computer Engineering, Sharif University of Technology · GPA 18.49/20 · Tehran, Iran</p>' +
+        '<p class="dim"><span class="faint">[Mohammad]</span> Sina Beyrami <span class="faint">[Aghbash]</span> — B.Sc. in Computer Engineering, Sharif University of Technology · GPA 18.49/20 · Tehran, Iran</p>' +
         '<p>Applies ML, DL, and NLP wherever a hidden structure can be modeled and learned from: source code and commit history, genomes and chemical structures, clinical images, and EEG/brain-network signals — with retrieval-augmented methods as a recurring focus within NLP. Work spans software engineering, computational biology and medicine, and computational neuroscience, across labs at ML4SW, QCRI, TU Dresden, and IPM.</p>'
       );
     } else if (cmd === 'show kg-commit' || cmd === 'kg-commit' || cmd === 'show kg'){
