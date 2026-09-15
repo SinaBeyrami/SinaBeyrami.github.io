@@ -3088,6 +3088,19 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
       if (pragTarget) pragTarget.innerHTML = persianRagSpecimenHTML();
     }
 
+    // `show research` clones the graph's markup, which arrives inert — an HTML string
+    // carries no event listeners. Clear the clone and rebuild the graph inside it so
+    // hover, click, zoom and pan work in the new block too. The original block keeps
+    // the shared element ids, so strip them from the clone before rebuilding.
+    if (cmd === 'show research' || cmd === 'research'){
+      var clonedGraph = block.querySelector('#graph-target') || block.querySelector('.graph-block');
+      if (clonedGraph){
+        clonedGraph.removeAttribute('id');
+        clonedGraph.innerHTML = '';
+        buildGraph(clonedGraph);
+      }
+    }
+
     // a cloned `contact` block carries a portrait that still needs measuring
     if (window.__sizeContactPortraits) window.__sizeContactPortraits();
 
