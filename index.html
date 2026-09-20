@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="Sina Beyrami — machine learning across code, language, computational biology, and computational neuroscience. B.Sc. Computer Engineering, Sharif University of Technology.">
-<meta name="author" content="Sina Beyrami">
+<meta name="author" content="Mohammad Sina Beyrami Aghbash">
 <link rel="canonical" href="https://sinabeyrami.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Sina Beyrami — Research Portfolio">
@@ -878,11 +878,14 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
     <div class="block" data-cmd="show other-projects">
       <div class="prompt-line"><span class="path-seg">sina@research:~$</span> <span class="cmd">show other-projects</span></div>
       <div class="out">
+        <div style="margin-bottom:28px;"><div id="eeg-specimen-target"></div></div>
         <div style="margin-bottom:28px;"><div id="radrl-specimen-target"></div></div>
         <div style="margin-bottom:28px;"><div id="vitiligo-specimen-target"></div></div>
         <div style="margin-bottom:28px;"><div id="digikala-specimen-target"></div></div>
         <div style="margin-bottom:28px;"><div id="athleteqa-specimen-target"></div></div>
+        <div style="margin-bottom:28px;"><div id="init-specimen-target"></div></div>
         <div style="margin-bottom:28px;"><div id="mlpractical-specimen-target"></div></div>
+        <div style="margin-bottom:28px;"><div id="energy-specimen-target"></div></div>
         <div style="margin-bottom:28px;"><div id="persianqa-specimen-target"></div></div>
         <div style="margin-bottom:28px;"><div id="pso1-specimen-target"></div></div>
         <div style="margin-bottom:28px;"><div id="pso2-specimen-target"></div></div>
@@ -905,7 +908,7 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
   <div class="console">
     <div class="console-hint" id="consoleHint">
       <span><b>try:</b></span>
-      <button type="button" class="k">whoami</button><button type="button" class="k">show kg-commit</button><button type="button" class="k">show amr</button><button type="button" class="k">show persian-rag</button><button type="button" class="k">show research</button>
+      <button type="button" class="k">whoami</button><button type="button" class="k">show kg-commit</button><button type="button" class="k">show amr</button><button type="button" class="k">show persian-rag</button><button type="button" class="k">show eeg</button><button type="button" class="k">show rad-rl</button><button type="button" class="k">show research</button>
       <button type="button" class="k">show repos</button><button type="button" class="k">show skills</button><button type="button" class="k">show other-projects</button><button type="button" class="k">contact</button><button type="button" class="k">help</button><button type="button" class="k">clear</button>
     </div>
     <div class="console-row">
@@ -2409,6 +2412,250 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
   }
   document.getElementById('bookstore-specimen-target').innerHTML = bookstoreSpecimenHTML();
 
+  // =========================================================
+  // SPECIMEN U — Inter-Subject Drowsiness Detection (in-ear EEG)
+  // =========================================================
+  function eegSpecimenHTML(){
+    return `
+      <figure class="specimen rust">
+        <div class="specimen-head">
+          <div class="sid">SPECIMEN U — RESEARCH ASSISTANTSHIP</div>
+          <div class="sstatus">ongoing · manuscript in preparation</div>
+        </div>
+        <div class="specimen-body">
+          <div>
+            <h3>Inter-Subject Drowsiness Detection via In-Ear EEG</h3>
+            <div class="sub2">Cognitive Sciences, IPM · advised by Dr. Reza Ebrahimpour</div>
+            <p>Detecting driver drowsiness from a <span class="redact">single channel of wearable in-ear EEG</span>, and
+            doing it for a driver the system has never seen before — the setting that decides whether such a device can
+            ship as consumer hardware rather than be re-trained per person.</p>
+            <p>Built on a cohort of 18 subjects, 45 trials each, segmented into 4,050 ten-second windows at 500 Hz.
+            Every result is measured under strict <b>leave-one-subject-out</b> evaluation: the held-out subject never
+            touches a scaler, a cluster, a classifier or a decision threshold.</p>
+            <div class="claims">
+              <div class="claim"><b>Signal:</b> in-ear EARR/EARL channels with T7/T8 and ECG, 50 Hz notch → 0.5–30 Hz fifth-order Butterworth → subject-wise normalization</div>
+              <div class="claim"><b>Protocol:</b> 18-fold leave-one-subject-out throughout, benchmarked against a per-subject majority-class reference so that every reported gain is a real one</div>
+              <div class="claim"><b>Architectures explored:</b> EEGNet and ShallowConvNet variants, Siamese contrastive encoders, CWT time–frequency CNNs, supervised-contrastive attention fusion, and cluster-routed test-time adaptation</div>
+              <div class="claim"><b>Transfer analysis:</b> per-target specialist selection establishes that the cohort carries the information needed to generalize to a driver the model has never seen</div>
+              <div class="claim"><b>Calibration path:</b> a few-shot route using a handful of labelled trials from the target subject, as a practical alternative to fully zero-shot deployment</div>
+              <div class="claim"><b>Status:</b> experiments ongoing; results being extended toward a manuscript for submission</div>
+            </div>
+          </div>
+          <div class="specimen-side">
+            <div class="pinnote rust hand">a drowsiness detector that needs to meet you first is not a product. The whole problem is the driver it has never seen — and the cohort proves the signal is there to be found.</div>
+            <figure class="svgwrap">
+              <svg viewBox="0 0 300 330" role="img" aria-label="Diagram: single-channel in-ear EEG is filtered and normalized into ten-second windows, encoded by deep models, and evaluated under leave-one-subject-out protocol against a majority-class reference, with a few-shot calibration route for unseen drivers." class="diagram-ink" style="width:100%;height:auto;">
+                <rect x="55" y="6" width="190" height="32" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
+                <text x="150" y="20" font-size="9.5" text-anchor="middle" fill="currentColor" font-weight="700">IN-EAR EEG · SINGLE CHANNEL</text>
+                <text x="150" y="32" font-size="8" text-anchor="middle" fill="currentColor">18 subjects · 4,050 windows · 500 Hz</text>
+
+                <path d="M150,38 L150,56" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a21)"/>
+
+                <rect x="45" y="60" width="210" height="40" rx="3" fill="none" stroke="#5eead4" stroke-width="1.4"/>
+                <text x="150" y="76" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">PREPROCESSING</text>
+                <text x="150" y="90" font-size="8" text-anchor="middle" fill="currentColor" textLength="188" lengthAdjust="spacingAndGlyphs">notch · 0.5–30 Hz Butterworth · normalize</text>
+
+                <path d="M150,100 L150,118" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a21)"/>
+
+                <rect x="30" y="122" width="240" height="44" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
+                <text x="150" y="138" font-size="9" text-anchor="middle" fill="currentColor" font-weight="700">DEEP ENCODERS</text>
+                <text x="150" y="152" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="218" lengthAdjust="spacingAndGlyphs">EEGNet · Siamese contrastive · CWT CNN · SupCon fusion</text>
+
+                <path d="M150,166 L150,184" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a21)"/>
+
+                <rect x="40" y="188" width="220" height="44" rx="3" fill="none" stroke="#e8b750" stroke-width="1.5"/>
+                <text x="150" y="204" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">LEAVE-ONE-SUBJECT-OUT</text>
+                <text x="150" y="218" font-size="8" text-anchor="middle" fill="#e8b750" textLength="196" lengthAdjust="spacingAndGlyphs">18 folds · held-out driver never seen in training</text>
+
+                <path d="M110,232 C95,248 81,252 81,262" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a21)"/>
+                <path d="M190,232 C205,248 221,252 221,262" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a21)"/>
+
+                <rect x="15" y="266" width="132" height="44" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
+                <text x="81" y="283" font-size="8.5" text-anchor="middle" fill="#e2735a" font-weight="700" textLength="112" lengthAdjust="spacingAndGlyphs">SPECIALIST TRANSFER</text>
+                <text x="81" y="297" font-size="7.5" text-anchor="middle" fill="#e2735a" textLength="104" lengthAdjust="spacingAndGlyphs">signal present in cohort</text>
+
+                <rect x="155" y="266" width="132" height="44" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
+                <text x="221" y="283" font-size="8.5" text-anchor="middle" fill="#e2735a" font-weight="700" textLength="96" lengthAdjust="spacingAndGlyphs">FEW-SHOT ROUTE</text>
+                <text x="221" y="297" font-size="7.5" text-anchor="middle" fill="#e2735a" textLength="104" lengthAdjust="spacingAndGlyphs">brief target calibration</text>
+
+                <defs>
+                  <marker id="a21" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+                  </marker>
+                </defs>
+              </svg>
+              <figcaption>Fig. U — in-ear EEG is filtered into ten-second windows and encoded by deep models, all evaluated leave-one-subject-out; specialist transfer and few-shot calibration mark the routes to an unseen driver.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </figure>
+    `;
+  }
+  document.getElementById('eeg-specimen-target').innerHTML = eegSpecimenHTML();
+
+  // =========================================================
+  // SPECIMEN V — Energy-Accuracy Benchmarking of Lightweight Transformers
+  // =========================================================
+  function energySpecimenHTML(){
+    return `
+      <figure class="specimen rust">
+        <div class="specimen-head">
+          <div class="sid">SPECIMEN V — RESEARCH PROJECT</div>
+          <div class="sstatus">ongoing · manuscript in preparation</div>
+        </div>
+        <div class="specimen-body">
+          <div>
+            <h3>Energy-Accuracy Benchmarking of Lightweight Transformers</h3>
+            <div class="sub2">Inference energy and accuracy trade-offs across standard NLP tasks</div>
+            <p>A <span class="redact">reproducible benchmarking framework measuring what a transformer actually costs to
+            run</span> — not parameter count as a proxy, but joules drawn from hardware counters during inference,
+            measured alongside accuracy on the same runs.</p>
+            <p>Eight models from BERT-Tiny at 4.4M parameters up to RoBERTa-base at 125M, across four tasks spanning
+            sentiment, topic classification, hate-speech detection and natural language inference — with quantization,
+            batch size, sequence length and hardware all treated as variables rather than fixed assumptions.</p>
+            <div class="claims">
+              <div class="claim"><b>Models:</b> DistilBERT, MobileBERT, TinyBERT, ALBERT, SqueezeBERT and BERT-Tiny, against BERT-base and RoBERTa-base as full-size baselines</div>
+              <div class="claim"><b>Tasks:</b> SST-2, AG News, TweetEval (hate), MultiNLI — single-sentence and sentence-pair, binary through three-way</div>
+              <div class="claim"><b>Energy measurement:</b> GPU hardware counters via pynvml with baseline correction, CodeCarbon CO₂ accounting, TDP-normalized cross-hardware comparison, and thermal drift tracking</div>
+              <div class="claim"><b>Composite metric:</b> an Energy-Accuracy Score, EAS = Accuracy<sup>α</sup> / (Energy<sup>β</sup> × Latency<sup>γ</sup>), with Pareto-frontier computation and a sensitivity analysis over the weightings</div>
+              <div class="claim"><b>Precision sweep:</b> FP32, FP16, INT8 dynamic quantization and ONNX Runtime, benchmarked through one interface</div>
+              <div class="claim"><b>Statistical rigor:</b> five seeds per configuration with Wilcoxon signed-rank tests, Bonferroni correction, Cohen's d effect sizes and 95% confidence intervals</div>
+              <div class="claim"><b>Status:</b> experiments ongoing; results being extended toward a manuscript for submission</div>
+            </div>
+          </div>
+          <div class="specimen-side">
+            <div class="pinnote rust hand">"smaller model" is an assumption, not a measurement. Parameter count tells you almost nothing about the energy a forward pass actually draws — so measure the joules, on the same runs that produce the accuracy.</div>
+            <figure class="svgwrap">
+              <svg viewBox="0 0 300 330" role="img" aria-label="Diagram: eight transformer models across four NLP tasks are run under multiple precisions, with accuracy, latency and GPU-counter energy measured on the same runs, combined into an Energy-Accuracy Score and a Pareto frontier, validated across seeds and hardware." class="diagram-ink" style="width:100%;height:auto;">
+                <rect x="10" y="6" width="130" height="38" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
+                <text x="75" y="22" font-size="9" text-anchor="middle" fill="currentColor" font-weight="700">8 MODELS</text>
+                <text x="75" y="35" font-size="7.5" text-anchor="middle" fill="currentColor">4.4M → 125M params</text>
+
+                <rect x="160" y="6" width="130" height="38" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
+                <text x="225" y="22" font-size="9" text-anchor="middle" fill="currentColor" font-weight="700">4 NLP TASKS</text>
+                <text x="225" y="35" font-size="7.5" text-anchor="middle" fill="currentColor">SST-2 · AG News · hate · MNLI</text>
+
+                <path d="M75,44 C85,58 120,62 142,68" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a22)"/>
+                <path d="M225,44 C215,58 180,62 158,68" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a22)"/>
+
+                <rect x="40" y="72" width="220" height="40" rx="3" fill="none" stroke="#5eead4" stroke-width="1.4"/>
+                <text x="150" y="88" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">PRECISION SWEEP</text>
+                <text x="150" y="102" font-size="8" text-anchor="middle" fill="currentColor">FP32 · FP16 · INT8 · ONNX</text>
+
+                <path d="M150,112 L150,130" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a22)"/>
+
+                <rect x="20" y="134" width="260" height="46" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
+                <text x="150" y="150" font-size="9" text-anchor="middle" fill="currentColor" font-weight="700">MEASURED ON THE SAME RUN</text>
+                <text x="150" y="164" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="240" lengthAdjust="spacingAndGlyphs">accuracy · latency · GPU-counter energy · thermal drift</text>
+                <line x1="105" y1="140" x2="105" y2="174" stroke="currentColor" stroke-width=".8" opacity=".3"/>
+                <line x1="195" y1="140" x2="195" y2="174" stroke="currentColor" stroke-width=".8" opacity=".3"/>
+
+                <path d="M150,180 L150,198" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a22)"/>
+
+                <rect x="45" y="202" width="210" height="46" rx="3" fill="none" stroke="#e8b750" stroke-width="1.5"/>
+                <text x="150" y="219" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">ENERGY-ACCURACY SCORE</text>
+                <text x="150" y="234" font-size="8" text-anchor="middle" fill="#e8b750" textLength="180" lengthAdjust="spacingAndGlyphs">EAS = Acc^α / (Energy^β × Latency^γ)</text>
+
+                <path d="M150,248 L150,266" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a22)"/>
+
+                <rect x="30" y="270" width="240" height="46" rx="3" fill="none" stroke="#e2735a" stroke-width="1.5"/>
+                <text x="150" y="287" font-size="9" text-anchor="middle" fill="#e2735a" font-weight="700">PARETO FRONTIER · 5 SEEDS</text>
+                <text x="150" y="301" font-size="7.5" text-anchor="middle" fill="#e2735a" textLength="212" lengthAdjust="spacingAndGlyphs">Wilcoxon · Bonferroni · Cohen's d · cross-hardware</text>
+
+                <defs>
+                  <marker id="a22" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+                  </marker>
+                </defs>
+              </svg>
+              <figcaption>Fig. V — eight models across four tasks and four precisions, with accuracy, latency and hardware-counter energy captured on the same runs, combined into an Energy-Accuracy Score and a Pareto frontier over five seeds.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </figure>
+    `;
+  }
+  document.getElementById('energy-specimen-target').innerHTML = energySpecimenHTML();
+
+  // =========================================================
+  // SPECIMEN W — Priors and Innate Structure in Neural Initialization
+  // =========================================================
+  function initSpecimenHTML(){
+    return `
+      <figure class="specimen">
+        <div class="specimen-head">
+          <div class="sid">SPECIMEN W — RESEARCH ASSISTANTSHIP</div>
+          <div class="sstatus">paused · first research experience</div>
+        </div>
+        <div class="specimen-body">
+          <div>
+            <h3>Priors and Innate Structure in Neural Initialization</h3>
+            <div class="sub2">CMC Lab, TU Dresden (remote) · advised by Dr. Shervin Safavi</div>
+            <p>An interdisciplinary computational-neuroscience and deep-learning project asking what a network already
+            knows <em>before</em> it learns anything — studying the <span class="redact">innate computational capabilities
+            of the brain</span> and what they imply for how artificial networks should begin.</p>
+            <p>Two directions ran in parallel: deriving initialization schemes inspired by innate brain function, and
+            investigating how recurrent networks under particular initializations could model early cognitive behaviours
+            and potential predispositions — treating the initial weight distribution as a prior with behavioural meaning
+            rather than a numerical convenience.</p>
+            <div class="claims">
+              <div class="claim"><b>Question:</b> if a brain is born with structure that makes some computations easy, what is the corresponding structure for an artificial network?</div>
+              <div class="claim"><b>Direction 1:</b> novel initialization schemes derived from innate brain function, rather than from variance-preservation arguments alone</div>
+              <div class="claim"><b>Direction 2:</b> recurrent networks whose initialization lets them model early cognitive behaviour and predisposition</div>
+              <div class="claim"><b>Foundations reviewed:</b> Glorot/Xavier and He initialization and their variance arguments, identity-based initialization, data-driven schemes for MLPs and CNNs, ReLU failure modes, frequency-domain effects of the initial distribution, and emergence in trained networks</div>
+              <div class="claim"><b>Role:</b> first research experience — remote, interdisciplinary, and the entry point into computational neuroscience</div>
+            </div>
+          </div>
+          <div class="specimen-side">
+            <div class="pinnote hand">a newborn brain is not a blank slate, and there is no obvious reason a network should be either. Initialization is usually treated as a variance problem — but it is really the only prior the model has before the first gradient arrives.</div>
+            <figure class="svgwrap">
+              <svg viewBox="0 0 300 300" role="img" aria-label="Diagram: innate brain structure informs two parallel directions — neuroscience-inspired initialization schemes for feedforward networks, and recurrent networks whose initialization models early cognitive behaviour — both grounded in a review of classical initialization theory." class="diagram-ink" style="width:100%;height:auto;">
+                <rect x="55" y="6" width="190" height="38" rx="3" fill="none" stroke="#5eead4" stroke-width="1.4"/>
+                <text x="150" y="22" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">INNATE BRAIN STRUCTURE</text>
+                <text x="150" y="35" font-size="8" text-anchor="middle" fill="currentColor" textLength="170" lengthAdjust="spacingAndGlyphs">computation available before learning</text>
+
+                <path d="M110,44 C90,58 70,64 70,74" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a23)"/>
+                <path d="M190,44 C210,58 230,64 230,74" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a23)"/>
+
+                <rect x="8" y="78" width="124" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
+                <text x="70" y="95" font-size="8.5" text-anchor="middle" fill="currentColor" font-weight="700">DIRECTION 1</text>
+                <text x="70" y="108" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="110" lengthAdjust="spacingAndGlyphs">initialization schemes</text>
+                <text x="70" y="120" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="104" lengthAdjust="spacingAndGlyphs">from innate function</text>
+
+                <rect x="168" y="78" width="124" height="52" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
+                <text x="230" y="95" font-size="8.5" text-anchor="middle" fill="currentColor" font-weight="700">DIRECTION 2</text>
+                <text x="230" y="108" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="112" lengthAdjust="spacingAndGlyphs">RNNs modelling early</text>
+                <text x="230" y="120" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="112" lengthAdjust="spacingAndGlyphs">cognitive behaviour</text>
+
+                <path d="M70,130 C80,148 120,156 145,162" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a23)"/>
+                <path d="M230,130 C220,148 180,156 155,162" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a23)"/>
+
+                <rect x="30" y="166" width="240" height="48" rx="3" fill="none" stroke="currentColor" stroke-width="1.3" stroke-dasharray="4 2"/>
+                <text x="150" y="183" font-size="8.5" text-anchor="middle" fill="currentColor" font-weight="700">GROUNDED IN INITIALIZATION THEORY</text>
+                <text x="150" y="196" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="216" lengthAdjust="spacingAndGlyphs">Xavier/Glorot · He · identity init · data-driven schemes</text>
+                <text x="150" y="207" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="192" lengthAdjust="spacingAndGlyphs">ReLU failure modes · frequency effects · emergence</text>
+
+                <path d="M150,214 L150,232" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a23)"/>
+
+                <rect x="40" y="236" width="220" height="46" rx="3" fill="none" stroke="#e8b750" stroke-width="1.5"/>
+                <text x="150" y="254" font-size="9" text-anchor="middle" fill="#e8b750" font-weight="700">THE WEIGHTS AS A PRIOR</text>
+                <text x="150" y="268" font-size="7.5" text-anchor="middle" fill="#e8b750" textLength="196" lengthAdjust="spacingAndGlyphs">what the network knows before it learns anything</text>
+
+                <defs>
+                  <marker id="a23" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
+                  </marker>
+                </defs>
+              </svg>
+              <figcaption>Fig. W — innate brain structure informs two parallel directions, initialization schemes and recurrent models of early cognition, both grounded in classical initialization theory and treating the initial weights as the network's prior.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </figure>
+    `;
+  }
+  document.getElementById('init-specimen-target').innerHTML = initSpecimenHTML();
+
 
   // =========================================================
   // SPECIMEN REGISTRY — every project has a full annotated record; this maps a
@@ -2422,7 +2669,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
     a2c: a2cSpecimenHTML, matterlamp: matterlampSpecimenHTML,
     heartdisease: heartdiseaseSpecimenHTML, dsp: dspSpecimenHTML, spectral: spectralSpecimenHTML,
     nlpbasics: nlpbasicsSpecimenHTML, imgproc: imgprocSpecimenHTML,
-    des: desSpecimenHTML, bookstore: bookstoreSpecimenHTML
+    des: desSpecimenHTML, bookstore: bookstoreSpecimenHTML,
+    eeg: eegSpecimenHTML, energynlp: energySpecimenHTML, nninit: initSpecimenHTML
   };
 
   // =========================================================
@@ -2436,12 +2684,14 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
       desc:"Cross-cutting NLP + bioinformatics + deep learning: fusing chemical and genomic language models to predict drug resistance, including on unseen drugs and an unseen bacterium." },
     { id:"se", name:"ML for Software Engineering", angle:-30,
       desc:"Modeling code, commits, and contributors to catch bugs before they ship." },
-    { id:"nlp", name:"NLP & RAG", angle:35,
+    { id:"nlp", name:"NLP & RAG", angle:30,
       desc:"Retrieval-augmented systems over Persian and multimodal data." },
-    { id:"bio", name:"Bioinformatics & Health", angle:110,
+    { id:"bio", name:"Bioinformatics & Health", angle:90,
       desc:"Vision-language and statistical models applied to radiology, genomics, and clinical data." },
-    { id:"dl", name:"Deep Learning & Systems", angle:190,
+    { id:"dl", name:"Deep Learning & Systems", angle:150,
       desc:"Core modeling and signal-processing work underneath the applied projects." },
+    { id:"neuro", name:"Computational Neuroscience", angle:210,
+      desc:"Learning from brain signals and brain-inspired structure — wearable EEG, and genomic architecture in distributed brain networks." },
   ];
 
   // Projects are flat; `categories` lists every area they belong to (multi-category projects
@@ -2457,6 +2707,18 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
       categories:["se"], specimen:"kg-commit", specimenLabel:"show kg-commit",
       desc:"First known application of knowledge graphs to commit-level, just-in-time bug detection — modeling code semantics and inter-file relationships, with light non-GPU inference. Published as arXiv:2609.06272 [cs.SE]; second author, equal contribution.",
       tags:["Knowledge Graphs","JIT Bug Detection"]},
+    { id:"eeg", grade:2, name:"In-Ear EEG Drowsiness", tag:"Research Assistantship · IPM", url:null,
+      privateNote:"Private repository", categories:["neuro","dl"], specimenLabel:"show eeg",
+      desc:"Inter-subject drowsiness detection from a single channel of wearable in-ear EEG, evaluated leave-one-subject-out across 18 subjects, with deep encoders and transfer analysis for drivers the model has never seen. Ongoing, toward a manuscript.",
+      tags:["EEG","LOSO","Wearables","Contrastive"]},
+    { id:"energynlp", grade:6, name:"Energy-Accuracy Benchmarking", tag:"Research Project", url:null,
+      privateNote:"Private repository", categories:["nlp","dl"], specimenLabel:"show energy",
+      desc:"Reproducible benchmarking of inference energy against accuracy for eight lightweight transformers across four NLP tasks — GPU-counter energy, a composite Energy-Accuracy Score, quantization sweeps and multi-seed statistics. Ongoing, toward a manuscript.",
+      tags:["Green AI","Benchmarking","Quantization","Transformers"]},
+    { id:"nninit", grade:4, name:"Neural Initialization Priors", tag:"Research Assistantship · TU Dresden", url:null,
+      categories:["neuro","dl"], specimenLabel:"show nn-init",
+      desc:"Neuroscience-inspired initialization: schemes derived from innate brain function, and recurrent networks whose initialization models early cognitive behaviour. Treats the initial weights as the network's prior. Paused.",
+      tags:["Initialization","RNNs","Neuro-inspired"]},
     { id:"persianfig", grade:2, name:"Persian-Public-Figures RAG", url:"https://github.com/SinaBeyrami/Persian-public-figures-Multimodal-Retrieval-Augmented-QA",
       categories:["nlp"], specimen:"persian-rag", specimenLabel:"show persian-rag",
       desc:"Multimodal RAG over Iranian public figures — mE5 text and CLIP image indexes in FAISS, with VLM + InsightFace identity verification and LLM-as-judge evaluation.",
@@ -2527,7 +2789,7 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
   function buildGraph(container){
     container.innerHTML = `
       <div class="graph-toolbar">
-        <span>Network view · center = <b>Sina / Machine Learning</b> · gold node = <b>KG-Commit</b> (thesis) · rust ♥ node = <b>AMR</b> (favorite) · node size = project weight</span>
+        <span>Network view · center = <b>Sina / ML·DL·NLP</b> · gold node = <b>KG-Commit</b> (thesis) · rust node = <b>AMR</b> · node size = project weight</span>
         <div class="zoom-controls" role="group" aria-label="Zoom and pan controls">
           <button type="button" id="zoomOut" title="Zoom out" aria-label="Zoom out">−</button>
           <button type="button" id="zoomReset" title="Reset view" aria-label="Reset view">⤾</button>
@@ -2726,8 +2988,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
         html = `<p class="detail-kicker">Center of the graph</p>
           <h3 class="detail-title">Sina Beyrami</h3>
           <p class="detail-desc" style="margin-bottom:8px;color:var(--text-dim);font-size:.78em;">[Mohammad] Sina Beyrami [Aghbash] — published as M. S. Beyrami Aghbash</p>
-          <p class="detail-desc">B.Sc. in Computer Engineering, Sharif University of Technology (GPA 18.49/20). Five connected research areas, 21 public repositories plus one private team project (AMR, at QCRI).</p>
-          <div class="detail-tags"><span class="tag">Sharif University</span><span class="tag">5 areas</span><span class="tag">21 repos + 1 private</span></div>
+          <p class="detail-desc">B.Sc. in Computer Engineering, Sharif University of Technology (GPA 18.49/20). Six connected research areas, 21 public repositories plus one private team project (AMR, at QCRI).</p>
+          <div class="detail-tags"><span class="tag">Sharif University</span><span class="tag">6 areas</span><span class="tag">21 repos + 1 private</span></div>
           <a class="detail-link" href="https://github.com/SinaBeyrami" target="_blank" rel="noopener">View GitHub ↗</a>`;
       } else if (n.kind === "area"){
         const a = n.data;
@@ -2963,6 +3225,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
     '  show kg-commit     — B.Sc. thesis, annotated record (submitted, under review)',
     '  show amr           — AMR prediction at QCRI, annotated record',
     '  show persian-rag   — Persian-Public-Figures RAG, annotated record',
+    '  show eeg           — in-ear EEG drowsiness detection, annotated record',
+    '  show rad-rl        — radiology vision-language framework, annotated record',
     '  show research      — interactive research graph + lab table',
     '  show repos         — 21 repositories, grouped by category',
     '  show skills        — technical skill inventory',
@@ -3037,6 +3301,12 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
         if (restoredDes) restoredDes.innerHTML = desSpecimenHTML();
         var restoredBookstore = document.getElementById('bookstore-specimen-target');
         if (restoredBookstore) restoredBookstore.innerHTML = bookstoreSpecimenHTML();
+        var restoredEeg = document.getElementById('eeg-specimen-target');
+        if (restoredEeg) restoredEeg.innerHTML = eegSpecimenHTML();
+        var restoredEnergy = document.getElementById('energy-specimen-target');
+        if (restoredEnergy) restoredEnergy.innerHTML = energySpecimenHTML();
+        var restoredInit = document.getElementById('init-specimen-target');
+        if (restoredInit) restoredInit.innerHTML = initSpecimenHTML();
         window.scrollTo({top:0, behavior: reduceMotion ? 'auto' : 'smooth'});
       } else {
         log.innerHTML = '';
@@ -3058,6 +3328,12 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
       resultHtml = out('<div id="amr-specimen-repeat-' + Date.now() + '"></div>');
     } else if (cmd === 'show persian-rag' || cmd === 'persian-rag' || cmd === 'show persianrag'){
       resultHtml = out('<div id="persianrag-specimen-repeat-' + Date.now() + '"></div>');
+    } else if (cmd === 'show eeg' || cmd === 'eeg'){
+      if (window.__showSpecimen) window.__showSpecimen('eeg', raw);
+      return;
+    } else if (cmd === 'show rad-rl' || cmd === 'rad-rl' || cmd === 'show radrl'){
+      if (window.__showSpecimen) window.__showSpecimen('radrl', raw);
+      return;
     } else if (cmd === 'show research' || cmd === 'research'){
       resultHtml = findSectionHtml('show research');
     } else if (cmd === 'show repos' || cmd === 'repos' || cmd === 'show projects'){
