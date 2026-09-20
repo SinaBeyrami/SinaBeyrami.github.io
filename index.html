@@ -12,13 +12,18 @@
 <meta property="og:url" content="https://sinabeyrami.github.io/">
 <meta name="twitter:card" content="summary">
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%95%B8%EF%B8%8F</text></svg>">
-<style>:root{color-scheme:dark}html,body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<style>html,body{margin:0;padding:0}img{max-width:100%}[hidden]{display:none!important}</style>
 </head>
 <body>
 <title>Sina Beyrami — Research Portfolio</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;1,9..144,500&family=Caveat:wght@500;700&display=swap">
+<script>
+// Applied before first paint so a light-theme visitor never sees a dark flash.
+try{ if(localStorage.getItem('sb-portfolio-theme')==='light'){
+  document.documentElement.setAttribute('data-theme','light'); } }catch(e){}
+</script>
 <style>
 :root{
   --bg:#0a0d0c;
@@ -37,9 +42,42 @@
   --border:#1f2b27;
   --border-bright:#2c3a35;
   --danger:#f0716b;
+  --chrome-fg:#7c8a83;
+  --on-accent:#04120f;
+  --note-ink:#f4e2b8;
+  --note-ink-rust:#f6d9cf;
+  --note-ink-teal:#c8fff1;
+}
+
+/* Light theme. Not an inversion: the accents are re-darkened so they hold their
+   contrast on paper, and the ground keeps a faint green cast so the page still
+   reads as the same terminal rather than a generic white document. */
+:root[data-theme="light"]{
+  --bg:#f7f8f6;
+  --bg-raised:#ffffff;
+  --bg-inset:#eef1ed;
+  --text:#1c2521;
+  --text-dim:#55635c;
+  --text-faint:#79857e;
+  --accent:#0f766e;
+  --accent-soft:#0f766e14;
+  --accent-strong:#115e56;
+  --gold:#8a6410;
+  --gold-soft:#8a641014;
+  --flag:#b23f22;
+  --flag-soft:#b23f2214;
+  --border:#d8ded9;
+  --border-bright:#bcc6bf;
+  --danger:#c0392b;
+  --chrome-fg:#55635c;
+  --on-accent:#ffffff;
+  --note-ink:#4a3a12;
+  --note-ink-rust:#5c2415;
+  --note-ink-teal:#0d3f39;
 }
 *{box-sizing:border-box;}
 html{color-scheme:dark;}
+:root[data-theme="light"]{color-scheme:light;}
 body{
   background:var(--bg);
   color:var(--text);
@@ -48,7 +86,7 @@ body{
   font-size:15px;
   line-height:1.6;
 }
-::selection{background:var(--accent);color:#04120f;}
+::selection{background:var(--accent);color:var(--on-accent);}
 ::-webkit-scrollbar{width:10px;height:10px;}
 ::-webkit-scrollbar-track{background:var(--bg);}
 ::-webkit-scrollbar-thumb{background:var(--border-bright);border-radius:0;}
@@ -121,8 +159,23 @@ a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var
   text-overflow:ellipsis;
   white-space:nowrap;
 }
-.titlebar .status{
+.theme-btn{
   margin-left:auto;
+  display:flex;align-items:center;justify-content:center;
+  width:28px;height:28px;flex-shrink:0;
+  background:transparent;border:1px solid var(--border-bright);
+  color:var(--chrome-fg);cursor:pointer;padding:0;
+  transition:color .15s,border-color .15s;
+}
+.theme-btn:hover{color:var(--accent);border-color:var(--accent);}
+.theme-btn svg{width:15px;height:15px;display:block;}
+/* dark theme shows the sun (what clicking gets you); light shows the moon */
+.theme-btn .t-moon{display:none;}
+.theme-btn .t-sun{display:block;}
+:root[data-theme="light"] .theme-btn .t-moon{display:block;}
+:root[data-theme="light"] .theme-btn .t-sun{display:none;}
+.titlebar .status{
+  margin-left:10px;
   font-size:11.5px;
   color:var(--accent);
   border:1px solid var(--accent-soft);
@@ -343,7 +396,7 @@ a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var
 }
 .specimen-body .sub2{color:var(--text-dim);font-size:.82em;margin-bottom:14px;}
 .redact{
-  display:inline;background:var(--flag);color:#241310;padding:2px 7px;font-weight:700;
+  display:inline;background:var(--flag);color:var(--on-accent);padding:2px 7px;font-weight:700;
   box-decoration-break:clone;-webkit-box-decoration-break:clone;
 }
 .specimen-body p{margin:0 0 12px;color:var(--text);font-size:.94em;line-height:1.6;}
@@ -362,14 +415,14 @@ a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var
      Caveat is a compact hand, so even the smallest step stays legible */
   font-size:clamp(1.05rem, 1.35rem - .35vw, 1.35rem);
   line-height:1.3;
-  color:#f4e2b8;
+  color:var(--note-ink);
   transform:rotate(-1deg);
 }
 .pinnote::before{
   content:"";position:absolute;top:-9px;left:20px;width:16px;height:16px;border-radius:50%;
   background:var(--flag);box-shadow:0 2px 5px rgba(0,0,0,.5);
 }
-.pinnote.rust{ background:var(--flag-soft); border-color:var(--flag); color:#f6d9cf; }
+.pinnote.rust{ background:var(--flag-soft); border-color:var(--flag); color:var(--note-ink-rust); }
 .pinnote.rust::before{ background:var(--gold); }
 .svgwrap{margin-top:20px;}
 .svgwrap figcaption{font-size:.72em;color:var(--text-faint);margin-top:6px;}
@@ -465,17 +518,17 @@ svg .diagram-ink{color:var(--text-dim);}
 .detail-actions .act:hover{color:var(--accent-strong);padding-left:5px;}
 .detail-actions .act-ar{opacity:.6;}
 .detail-actions.gold .act{color:var(--gold);}
-.detail-actions.gold .act:hover{color:#f5d489;}
+.detail-actions.gold .act:hover{color:var(--gold);}
 .detail-actions.rust .act{color:var(--flag);}
-.detail-actions.rust .act:hover{color:#f0a08c;}
+.detail-actions.rust .act:hover{color:var(--flag);}
 .detail-actions .act-off{color:var(--text-faint);cursor:default;}
 .detail-actions .act-off:hover{color:var(--text-faint);padding-left:2px;}
 .detail-link{
   margin-top:auto;display:inline-flex;align-items:center;gap:6px;font-size:.78rem;
-  padding:8px 12px;background:var(--accent);color:#04231a;font-weight:700;justify-content:center;text-decoration:none;border:none;
+  padding:8px 12px;background:var(--accent);color:var(--on-accent);font-weight:700;justify-content:center;text-decoration:none;border:none;
 }
-.detail-link.gold{background:var(--gold);color:#241a04;}
-.detail-link.rust{background:var(--flag);color:#241310;}
+.detail-link.gold{background:var(--gold);color:var(--on-accent);}
+.detail-link.rust{background:var(--flag);color:var(--on-accent);}
 
 /* mobile accordion fallback for graph */
 .accordion{display:none;}
@@ -567,6 +620,10 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
   <div class="titlebar">
     <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
     <span class="path">sina@research: ~/portfolio — zsh</span>
+    <button type="button" id="themeToggle" class="theme-btn" aria-label="Switch to light theme" title="Switch theme">
+      <svg class="t-moon" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+      <svg class="t-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><path stroke="currentColor" stroke-width="1.8" stroke-linecap="round" d="M12 2.4v2.2M12 19.4v2.2M4.2 12H2M22 12h-2.2M6.1 6.1 4.6 4.6M19.4 19.4l-1.5-1.5M17.9 6.1l1.5-1.5M4.6 19.4l1.5-1.5"/></svg>
+    </button>
     <span class="status" id="liveStatus">LIVE</span>
   </div>
 
@@ -586,16 +643,16 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
               <!-- userSpaceOnUse: a horizontal path has a zero-height bounding box, which
                    collapses an objectBoundingBox gradient and makes the stroke invisible -->
               <linearGradient id="band-l" gradientUnits="userSpaceOnUse" x1="95" y1="0" x2="452" y2="0">
-                <stop offset="0%" stop-color="#5eead4" stop-opacity=".15"/>
-                <stop offset="100%" stop-color="#5eead4" stop-opacity=".85"/>
+                <stop offset="0%" stop-color="var(--accent)" stop-opacity=".15"/>
+                <stop offset="100%" stop-color="var(--accent)" stop-opacity=".85"/>
               </linearGradient>
               <linearGradient id="band-r" gradientUnits="userSpaceOnUse" x1="570" y1="0" x2="750" y2="0">
-                <stop offset="0%" stop-color="#e8b750" stop-opacity=".85"/>
-                <stop offset="100%" stop-color="#e8b750" stop-opacity=".15"/>
+                <stop offset="0%" stop-color="var(--gold)" stop-opacity=".85"/>
+                <stop offset="100%" stop-color="var(--gold)" stop-opacity=".15"/>
               </linearGradient>
               <marker id="band-arrow" viewBox="0 0 10 10" refX="9" refY="5"
                       markerWidth="6" markerHeight="6" orient="auto-start-reverse">
-                <path d="M0,0 L10,5 L0,10 z" fill="#5eead4"/>
+                <path d="M0,0 L10,5 L0,10 z" fill="var(--accent)"/>
               </marker>
             </defs>
 
@@ -604,17 +661,17 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
             <path class="flow" d="M95,65 C230,65 350,65 452,65" fill="none" stroke="url(#band-l)" stroke-width="1.6" marker-end="url(#band-arrow)"/>
             <path class="flow" d="M95,90 C230,90 340,68 452,68" fill="none" stroke="url(#band-l)" stroke-width="1.6" marker-end="url(#band-arrow)"/>
 
-            <circle cx="95" cy="40" r="3" fill="#5eead4"/>
-            <circle cx="95" cy="65" r="3" fill="#5eead4"/>
-            <circle cx="95" cy="90" r="3" fill="#5eead4"/>
+            <circle cx="95" cy="40" r="3" fill="var(--accent)"/>
+            <circle cx="95" cy="65" r="3" fill="var(--accent)"/>
+            <circle cx="95" cy="90" r="3" fill="var(--accent)"/>
 
-            <text x="85" y="44" text-anchor="end" class="band-node-label" fill="#99f6e4" font-weight="700">ML / DL</text>
-            <text x="85" y="69" text-anchor="end" class="band-node-label" fill="#99f6e4" font-weight="700">NLP</text>
-            <text x="85" y="94" text-anchor="end" class="band-node-label" fill="#99f6e4" font-weight="700">Programming</text>
+            <text x="85" y="44" text-anchor="end" class="band-node-label" fill="var(--accent-strong)" font-weight="700">ML / DL</text>
+            <text x="85" y="69" text-anchor="end" class="band-node-label" fill="var(--accent-strong)" font-weight="700">NLP</text>
+            <text x="85" y="94" text-anchor="end" class="band-node-label" fill="var(--accent-strong)" font-weight="700">Programming</text>
 
             <!-- the hub -->
-            <circle cx="500" cy="65" r="34" fill="#0d1211" stroke="#5eead4" stroke-width="1.6"/>
-            <circle cx="500" cy="65" r="42" fill="none" stroke="#5eead4" stroke-width="1" opacity=".35"/>
+            <circle cx="500" cy="65" r="34" fill="#0d1211" stroke="var(--accent)" stroke-width="1.6"/>
+            <circle cx="500" cy="65" r="42" fill="none" stroke="var(--accent)" stroke-width="1" opacity=".35"/>
             <text x="500" y="73" text-anchor="middle" class="band-hub-label" font-size="22" fill="#c9d1c8" font-weight="600">SB</text>
 
             <!-- domains, fanning out to the right -->
@@ -623,15 +680,15 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
             <path class="flow" d="M570,65 C660,66 680,78 750,78" fill="none" stroke="url(#band-r)" stroke-width="1.6"/>
             <path class="flow" d="M570,65 C660,68 680,103 750,103" fill="none" stroke="url(#band-r)" stroke-width="1.6"/>
 
-            <circle cx="750" cy="28" r="3" fill="#e8b750"/>
-            <circle cx="750" cy="53" r="3" fill="#e8b750"/>
-            <circle cx="750" cy="78" r="3" fill="#e8b750"/>
-            <circle cx="750" cy="103" r="3" fill="#e8b750"/>
+            <circle cx="750" cy="28" r="3" fill="var(--gold)"/>
+            <circle cx="750" cy="53" r="3" fill="var(--gold)"/>
+            <circle cx="750" cy="78" r="3" fill="var(--gold)"/>
+            <circle cx="750" cy="103" r="3" fill="var(--gold)"/>
 
-            <text x="762" y="32" class="band-node-label" fill="#e8b750" font-weight="700">Software Engineering</text>
-            <text x="762" y="57" class="band-node-label" fill="#e8b750" font-weight="700">Computational Biology</text>
-            <text x="762" y="82" class="band-node-label" fill="#e8b750" font-weight="700">Large Language Models</text>
-            <text x="762" y="107" class="band-node-label" fill="#e8b750" font-weight="700">Computational Neuroscience</text>
+            <text x="762" y="32" class="band-node-label" fill="var(--gold)" font-weight="700">Software Engineering</text>
+            <text x="762" y="57" class="band-node-label" fill="var(--gold)" font-weight="700">Computational Biology</text>
+            <text x="762" y="82" class="band-node-label" fill="var(--gold)" font-weight="700">Large Language Models</text>
+            <text x="762" y="107" class="band-node-label" fill="var(--gold)" font-weight="700">Computational Neuroscience</text>
           </svg>
         </div>
       </div>
@@ -965,8 +1022,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M150,36 L150,54" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)"/>
 
                 <!-- stage 2: knowledge graph -->
-                <rect x="45" y="58" width="210" height="46" rx="3" fill="none" stroke="#5eead4" stroke-width="1.5"/>
-                <text x="150" y="76" font-size="10.5" text-anchor="middle" fill="#5eead4" font-weight="700">KNOWLEDGE GRAPH</text>
+                <rect x="45" y="58" width="210" height="46" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.5"/>
+                <text x="150" y="76" font-size="10.5" text-anchor="middle" fill="var(--accent)" font-weight="700">KNOWLEDGE GRAPH</text>
                 <text x="150" y="92" font-size="8.5" text-anchor="middle" fill="currentColor" textLength="196" lengthAdjust="spacingAndGlyphs">code semantics + inter-file relationships</text>
 
                 <path d="M150,104 L150,122" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)"/>
@@ -985,16 +1042,16 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M150,176 L150,194" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)"/>
 
                 <!-- stage 4: switch@200, graph inference joins -->
-                <rect x="55" y="198" width="190" height="40" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4" stroke-dasharray="4 2"/>
-                <text x="150" y="215" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">SWITCH@200</text>
-                <text x="150" y="230" font-size="8.5" text-anchor="middle" fill="#e8b750">+ graph inference after warm-up</text>
+                <rect x="55" y="198" width="190" height="40" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4" stroke-dasharray="4 2"/>
+                <text x="150" y="215" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">SWITCH@200</text>
+                <text x="150" y="230" font-size="8.5" text-anchor="middle" fill="var(--gold)">+ graph inference after warm-up</text>
 
                 <path d="M150,238 L150,256" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a1)"/>
 
                 <!-- stage 5: output -->
-                <rect x="35" y="260" width="230" height="48" rx="3" fill="none" stroke="#e2735a" stroke-width="1.6"/>
-                <text x="150" y="280" font-size="10" text-anchor="middle" fill="#e2735a" font-weight="700">BUG-INDUCING COMMIT FLAGGED</text>
-                <text x="150" y="296" font-size="8" text-anchor="middle" fill="#e2735a" textLength="216" lengthAdjust="spacingAndGlyphs">low latency · no GPU · beats ApacheJIT baselines</text>
+                <rect x="35" y="260" width="230" height="48" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.6"/>
+                <text x="150" y="280" font-size="10" text-anchor="middle" fill="var(--flag)" font-weight="700">BUG-INDUCING COMMIT FLAGGED</text>
+                <text x="150" y="296" font-size="8" text-anchor="middle" fill="var(--flag)" textLength="216" lengthAdjust="spacingAndGlyphs">low latency · no GPU · beats ApacheJIT baselines</text>
 
                 <defs>
                   <marker id="a1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -1052,8 +1109,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M77,36 L77,52" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
 
-                <rect x="10" y="56" width="135" height="40" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="77" y="72" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">DOMAIN-ADAPTED GLM</text>
+                <rect x="10" y="56" width="135" height="40" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="77" y="72" font-size="9" text-anchor="middle" fill="var(--accent)" font-weight="700">DOMAIN-ADAPTED GLM</text>
                 <text x="77" y="86" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="122" lengthAdjust="spacingAndGlyphs">new tokenizer · surgery</text>
 
                 <path d="M77,96 L77,112" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
@@ -1067,8 +1124,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M242,36 L242,52" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
 
-                <rect x="175" y="56" width="135" height="40" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="242" y="72" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">DOMAIN-ADAPTED CLM</text>
+                <rect x="175" y="56" width="135" height="40" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="242" y="72" font-size="9" text-anchor="middle" fill="var(--accent)" font-weight="700">DOMAIN-ADAPTED CLM</text>
                 <text x="242" y="86" font-size="8" text-anchor="middle" fill="currentColor">chemical language model</text>
 
                 <path d="M242,96 L242,112" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
@@ -1080,16 +1137,16 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M77,142 C77,160 130,168 145,172" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
                 <path d="M242,142 C242,160 190,168 175,172" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
 
-                <rect x="85" y="176" width="150" height="40" rx="3" fill="none" stroke="#e2735a" stroke-width="1.5"/>
-                <text x="160" y="194" font-size="10" text-anchor="middle" fill="#e2735a" font-weight="700">CLASSIFIER</text>
-                <text x="160" y="208" font-size="8.5" text-anchor="middle" fill="#e2735a">gated attention fusion</text>
+                <rect x="85" y="176" width="150" height="40" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.5"/>
+                <text x="160" y="194" font-size="10" text-anchor="middle" fill="var(--flag)" font-weight="700">CLASSIFIER</text>
+                <text x="160" y="208" font-size="8.5" text-anchor="middle" fill="var(--flag)">gated attention fusion</text>
 
                 <path d="M160,216 L160,234" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a2)"/>
 
-                <rect x="45" y="238" width="230" height="56" rx="3" fill="none" stroke="#e8b750" stroke-width="1.6"/>
-                <text x="160" y="256" font-size="10" text-anchor="middle" fill="#e8b750" font-weight="700">RESISTANT / SUSCEPTIBLE</text>
-                <text x="160" y="271" font-size="8.5" text-anchor="middle" fill="#e8b750">evaluated on seen + unseen drugs</text>
-                <text x="160" y="284" font-size="8.5" text-anchor="middle" fill="#e8b750">and an unseen bacterium (E. coli)</text>
+                <rect x="45" y="238" width="230" height="56" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.6"/>
+                <text x="160" y="256" font-size="10" text-anchor="middle" fill="var(--gold)" font-weight="700">RESISTANT / SUSCEPTIBLE</text>
+                <text x="160" y="271" font-size="8.5" text-anchor="middle" fill="var(--gold)">evaluated on seen + unseen drugs</text>
+                <text x="160" y="284" font-size="8.5" text-anchor="middle" fill="var(--gold)">and an unseen bacterium (E. coli)</text>
 
                 <defs>
                   <marker id="a2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -1120,7 +1177,7 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
           <div>
             <h3>Persian-Public-Figures RAG</h3>
             <div class="sub2">Natural Language Processing course · Sharif University of Technology</div>
-            <p>Sina's most demanding practical project in NLP: an <span class="redact" style="background:var(--accent);color:#04231a;">end-to-end multimodal retrieval-augmented QA system over thousands of Iranian public figures</span>,
+            <p>Sina's most demanding practical project in NLP: an <span class="redact" style="background:var(--accent);color:var(--on-accent);">end-to-end multimodal retrieval-augmented QA system over thousands of Iranian public figures</span>,
             combining text and image retrieval so that a question can be answered and grounded in verified evidence, not just fluent text.</p>
             <p>Two retrieval indexes — mE5 over text, CLIP over images — are combined in FAISS, with an identity-verification step
             (a vision-language model plus InsightFace) added specifically to catch cases where retrieval alone would confuse two similar-looking people.
@@ -1136,7 +1193,7 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
             </div>
           </div>
           <div class="specimen-side">
-            <div class="pinnote hand" style="background:var(--accent-soft);border-color:var(--accent);color:#c8fff1;">answering a question about a Persian public figure means searching what was written about them and what they look like, at the same time — one retrieval system, two very different kinds of evidence, in a language most multimodal pipelines were never built for.</div>
+            <div class="pinnote hand" style="background:var(--accent-soft);border-color:var(--accent);color:var(--note-ink-teal);">answering a question about a Persian public figure means searching what was written about them and what they look like, at the same time — one retrieval system, two very different kinds of evidence, in a language most multimodal pipelines were never built for.</div>
             <figure class="svgwrap">
               <svg viewBox="0 0 300 300" role="img" aria-label="Diagram: a question is answered by retrieving both text via mE5 and images via CLIP from a FAISS index, verifying identity with a vision-language model and InsightFace, and generating a grounded answer evaluated by an LLM judge." class="diagram-ink" style="width:100%;height:auto;">
                 <rect x="85" y="6" width="130" height="28" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
@@ -1145,19 +1202,19 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M120,34 C90,44 60,50 60,58" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)"/>
                 <path d="M180,34 C210,44 240,50 240,58" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)"/>
 
-                <rect x="10" y="62" width="120" height="34" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="70" y="80" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">mE5 TEXT INDEX</text>
+                <rect x="10" y="62" width="120" height="34" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="70" y="80" font-size="9" text-anchor="middle" fill="var(--accent)" font-weight="700">mE5 TEXT INDEX</text>
                 <text x="70" y="92" font-size="8" text-anchor="middle" fill="currentColor">FAISS</text>
 
-                <rect x="170" y="62" width="120" height="34" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="230" y="80" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">CLIP IMAGE INDEX</text>
+                <rect x="170" y="62" width="120" height="34" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="230" y="80" font-size="9" text-anchor="middle" fill="var(--accent)" font-weight="700">CLIP IMAGE INDEX</text>
                 <text x="230" y="92" font-size="8" text-anchor="middle" fill="currentColor">FAISS</text>
 
                 <path d="M70,96 C90,110 130,116 145,122" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)"/>
                 <path d="M230,96 C210,110 170,116 155,122" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)"/>
 
-                <rect x="60" y="126" width="180" height="34" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
-                <text x="150" y="144" font-size="9.5" text-anchor="middle" fill="#e2735a" font-weight="700">VLM + INSIGHTFACE</text>
+                <rect x="60" y="126" width="180" height="34" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.4"/>
+                <text x="150" y="144" font-size="9.5" text-anchor="middle" fill="var(--flag)" font-weight="700">VLM + INSIGHTFACE</text>
                 <text x="150" y="156" font-size="8" text-anchor="middle" fill="currentColor">identity verification</text>
 
                 <path d="M150,160 L150,178" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)"/>
@@ -1167,8 +1224,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,212 L150,230" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a3)"/>
 
-                <rect x="55" y="234" width="190" height="34" rx="3" fill="none" stroke="#e8b750" stroke-width="1.5"/>
-                <text x="150" y="254" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">LLM-AS-JUDGE EVALUATION</text>
+                <rect x="55" y="234" width="190" height="34" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+                <text x="150" y="254" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">LLM-AS-JUDGE EVALUATION</text>
                 <defs>
                   <marker id="a3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
                     <path d="M0,0 L10,5 L0,10 z" fill="currentColor"/>
@@ -1224,8 +1281,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,34 L150,52" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a4)"/>
 
-                <rect x="55" y="56" width="190" height="34" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="76" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700" textLength="178" lengthAdjust="spacingAndGlyphs">CHEXZERO — ZERO-SHOT CLASSIFICATION</text>
+                <rect x="55" y="56" width="190" height="34" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="76" font-size="9" text-anchor="middle" fill="var(--accent)" font-weight="700" textLength="178" lengthAdjust="spacingAndGlyphs">CHEXZERO — ZERO-SHOT CLASSIFICATION</text>
 
                 <path d="M150,90 L150,108" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a4)"/>
 
@@ -1234,14 +1291,14 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,146 L150,164" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a4)"/>
 
-                <rect x="40" y="168" width="220" height="40" rx="3" fill="none" stroke="#e2735a" stroke-width="1.5"/>
-                <text x="150" y="186" font-size="9.5" text-anchor="middle" fill="#e2735a" font-weight="700">SCST + RADGRAPH REWARD</text>
-                <text x="150" y="200" font-size="8.5" text-anchor="middle" fill="#e2735a">+11.9% factuality F1</text>
+                <rect x="40" y="168" width="220" height="40" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.5"/>
+                <text x="150" y="186" font-size="9.5" text-anchor="middle" fill="var(--flag)" font-weight="700">SCST + RADGRAPH REWARD</text>
+                <text x="150" y="200" font-size="8.5" text-anchor="middle" fill="var(--flag)">+11.9% factuality F1</text>
 
                 <path d="M150,208 L150,226" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a4)"/>
 
-                <rect x="55" y="230" width="190" height="34" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="250" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">CONFORMAL UNCERTAINTY</text>
+                <rect x="55" y="230" width="190" height="34" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="250" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">CONFORMAL UNCERTAINTY</text>
 
                 <path d="M245,128 C270,150 270,270 250,278" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#a4)"/>
 
@@ -1300,8 +1357,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,40 L150,58" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a5)"/>
 
-                <rect x="55" y="62" width="190" height="34" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="83" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">DIFFERENTIAL EXPRESSION</text>
+                <rect x="55" y="62" width="190" height="34" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="83" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">DIFFERENTIAL EXPRESSION</text>
 
                 <path d="M150,96 L150,114" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a5)"/>
 
@@ -1310,13 +1367,13 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,148 L150,166" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a5)"/>
 
-                <rect x="55" y="170" width="190" height="34" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
-                <text x="150" y="191" font-size="9.5" text-anchor="middle" fill="#e2735a" font-weight="700">PATHWAY ENRICHMENT</text>
+                <rect x="55" y="170" width="190" height="34" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.4"/>
+                <text x="150" y="191" font-size="9.5" text-anchor="middle" fill="var(--flag)" font-weight="700">PATHWAY ENRICHMENT</text>
 
                 <path d="M150,204 L150,222" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a5)"/>
 
-                <rect x="40" y="226" width="220" height="30" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="245" font-size="9" text-anchor="middle" fill="#e8b750" font-weight="700">candidate melanocyte-loss pathways</text>
+                <rect x="40" y="226" width="220" height="30" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="245" font-size="9" text-anchor="middle" fill="var(--gold)" font-weight="700">candidate melanocyte-loss pathways</text>
 
                 <defs>
                   <marker id="a5" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -1370,8 +1427,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,36 L150,54" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a6)"/>
 
-                <rect x="45" y="58" width="210" height="34" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="79" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">SUMMARIES + GENERATED QA</text>
+                <rect x="45" y="58" width="210" height="34" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="79" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">SUMMARIES + GENERATED QA</text>
 
                 <path d="M110,92 C90,104 70,110 70,118" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a6)"/>
                 <path d="M190,92 C210,104 230,110 230,118" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a6)"/>
@@ -1386,13 +1443,13 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M70,156 C90,172 130,178 145,184" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a6)"/>
                 <path d="M230,156 C210,172 170,178 155,184" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a6)"/>
 
-                <rect x="70" y="188" width="160" height="32" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
-                <text x="150" y="208" font-size="9.5" text-anchor="middle" fill="#e2735a" font-weight="700">ranked evidence</text>
+                <rect x="70" y="188" width="160" height="32" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.4"/>
+                <text x="150" y="208" font-size="9.5" text-anchor="middle" fill="var(--flag)" font-weight="700">ranked evidence</text>
 
                 <path d="M150,220 L150,238" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a6)"/>
 
-                <rect x="55" y="242" width="190" height="30" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="261" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">Hit@k / MRR report</text>
+                <rect x="55" y="242" width="190" height="30" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="261" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">Hit@k / MRR report</text>
 
                 <defs>
                   <marker id="a6" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -1446,11 +1503,11 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M110,36 C90,48 70,52 70,60" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a7)"/>
                 <path d="M190,36 C210,48 230,52 230,60" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a7)"/>
 
-                <rect x="10" y="64" width="120" height="34" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="70" y="85" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">E5 TEXT INDEX</text>
+                <rect x="10" y="64" width="120" height="34" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="70" y="85" font-size="9" text-anchor="middle" fill="var(--accent)" font-weight="700">E5 TEXT INDEX</text>
 
-                <rect x="170" y="64" width="120" height="34" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="230" y="82" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">OPENCLIP INDEX</text>
+                <rect x="170" y="64" width="120" height="34" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="230" y="82" font-size="9" text-anchor="middle" fill="var(--accent)" font-weight="700">OPENCLIP INDEX</text>
                 <text x="230" y="93" font-size="7.5" text-anchor="middle" fill="currentColor">image-name heuristics</text>
 
                 <path d="M70,98 C90,112 130,118 145,124" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a7)"/>
@@ -1461,13 +1518,13 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,160 L150,178" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a7)"/>
 
-                <rect x="60" y="182" width="180" height="32" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
-                <text x="150" y="202" font-size="9.5" text-anchor="middle" fill="#e2735a" font-weight="700">CLIP recall + Hit@K</text>
+                <rect x="60" y="182" width="180" height="32" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.4"/>
+                <text x="150" y="202" font-size="9.5" text-anchor="middle" fill="var(--flag)" font-weight="700">CLIP recall + Hit@K</text>
 
                 <path d="M150,214 L150,232" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a7)"/>
 
-                <rect x="45" y="236" width="210" height="34" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="255" font-size="9" text-anchor="middle" fill="#e8b750" font-weight="700">JSON answer + evidence</text>
+                <rect x="45" y="236" width="210" height="34" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="255" font-size="9" text-anchor="middle" fill="var(--gold)" font-weight="700">JSON answer + evidence</text>
 
                 <defs>
                   <marker id="a7" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -1522,8 +1579,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,38 L150,56" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a8)"/>
 
-                <rect x="60" y="60" width="180" height="32" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="80" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">APPLIED DEEP LEARNING</text>
+                <rect x="60" y="60" width="180" height="32" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="80" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">APPLIED DEEP LEARNING</text>
 
                 <path d="M150,92 L150,110" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a8)"/>
 
@@ -1536,8 +1593,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M82,148 C100,164 120,168 145,176" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a8)"/>
                 <path d="M217,148 C200,164 180,168 155,176" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a8)"/>
 
-                <rect x="55" y="180" width="190" height="34" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="200" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">applied modeling foundations</text>
+                <rect x="55" y="180" width="190" height="34" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="200" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">applied modeling foundations</text>
 
                 <defs>
                   <marker id="a8" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -1589,8 +1646,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,36 L150,54" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a9)"/>
 
-                <rect x="55" y="58" width="190" height="30" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="77" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">sliding-window tokenization</text>
+                <rect x="55" y="58" width="190" height="30" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="77" font-size="9" text-anchor="middle" fill="var(--accent)" font-weight="700">sliding-window tokenization</text>
 
                 <path d="M110,88 C90,100 70,104 70,112" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a9)"/>
                 <path d="M190,88 C210,100 230,104 230,112" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a9)"/>
@@ -1611,9 +1668,9 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,212 L150,230" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a9)"/>
 
-                <rect x="35" y="234" width="230" height="38" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="252" font-size="9" text-anchor="middle" fill="#e8b750" font-weight="700">ParsBERT ~EM 40/F1 56</text>
-                <text x="150" y="264" font-size="9" text-anchor="middle" fill="#e8b750" font-weight="700">XLM-R ~EM 67/F1 82</text>
+                <rect x="35" y="234" width="230" height="38" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="252" font-size="9" text-anchor="middle" fill="var(--gold)" font-weight="700">ParsBERT ~EM 40/F1 56</text>
+                <text x="150" y="264" font-size="9" text-anchor="middle" fill="var(--gold)" font-weight="700">XLM-R ~EM 67/F1 82</text>
 
                 <defs>
                   <marker id="a9" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -1669,9 +1726,9 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <rect x="20" y="60" width="90" height="34" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
                 <text x="65" y="80" font-size="9" text-anchor="middle" fill="currentColor" font-weight="700">PSO</text>
 
-                <rect x="110" y="60" width="90" height="34" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="155" y="76" font-size="8.5" text-anchor="middle" fill="#5eead4" font-weight="700">HYBRID</text>
-                <text x="155" y="87" font-size="7.5" text-anchor="middle" fill="#5eead4">PSO seeded by CPOP</text>
+                <rect x="110" y="60" width="90" height="34" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="155" y="76" font-size="8.5" text-anchor="middle" fill="var(--accent)" font-weight="700">HYBRID</text>
+                <text x="155" y="87" font-size="7.5" text-anchor="middle" fill="var(--accent)">PSO seeded by CPOP</text>
 
                 <rect x="200" y="60" width="90" height="34" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
                 <text x="245" y="80" font-size="9" text-anchor="middle" fill="currentColor" font-weight="700">Random-CPOP</text>
@@ -1685,8 +1742,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,164 L150,182" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a10)"/>
 
-                <rect x="45" y="186" width="210" height="34" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="206" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">QoS + energy comparison</text>
+                <rect x="45" y="186" width="210" height="34" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="206" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">QoS + energy comparison</text>
 
                 <defs>
                   <marker id="a10" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -1743,8 +1800,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M80,36 C90,50 110,54 130,62" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a11)"/>
                 <path d="M220,36 C210,50 190,54 170,62" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a11)"/>
 
-                <rect x="60" y="66" width="180" height="40" rx="3" fill="none" stroke="#5eead4" stroke-width="1.4"/>
-                <text x="150" y="84" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">PSO SWARM</text>
+                <rect x="60" y="66" width="180" height="40" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+                <text x="150" y="84" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">PSO SWARM</text>
                 <text x="150" y="98" font-size="8" text-anchor="middle" fill="currentColor">fitness = QoS ⊕ power</text>
 
                 <path d="M150,106 L150,124" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a11)"/>
@@ -1754,11 +1811,11 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,162 L150,180" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a11)"/>
 
-                <rect x="40" y="184" width="220" height="34" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
-                <text x="150" y="204" font-size="9.5" text-anchor="middle" fill="#e2735a" font-weight="700">improved QoS on multi-core</text>
+                <rect x="40" y="184" width="220" height="34" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.4"/>
+                <text x="150" y="204" font-size="9.5" text-anchor="middle" fill="var(--flag)" font-weight="700">improved QoS on multi-core</text>
 
                 <path d="M150,218 L150,230" fill="none" stroke="currentColor" stroke-width="1" stroke-dasharray="3 2" marker-end="url(#a11)"/>
-                <text x="150" y="244" font-size="8.5" text-anchor="middle" fill="#e8b750" font-weight="700">→ ongoing co-authored publication</text>
+                <text x="150" y="244" font-size="8.5" text-anchor="middle" fill="var(--gold)" font-weight="700">→ ongoing co-authored publication</text>
 
                 <defs>
                   <marker id="a11" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -1810,8 +1867,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M115,34 C95,44 75,48 75,56" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a12)"/>
                 <path d="M185,34 C205,44 225,48 225,56" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a12)"/>
 
-                <rect x="15" y="60" width="120" height="36" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="75" y="80" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">ACTOR</text>
+                <rect x="15" y="60" width="120" height="36" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="75" y="80" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">ACTOR</text>
                 <text x="75" y="92" font-size="7.5" text-anchor="middle" fill="currentColor">policy π(a|s)</text>
 
                 <rect x="165" y="60" width="120" height="36" rx="3" fill="none" stroke="currentColor" stroke-width="1.3"/>
@@ -1830,8 +1887,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M75,148 C100,162 130,168 145,178" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a12)"/>
                 <path d="M225,148 C200,162 170,168 155,178" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a12)"/>
 
-                <rect x="60" y="182" width="180" height="36" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
-                <text x="150" y="200" font-size="9.5" text-anchor="middle" fill="#e2735a" font-weight="700">ADVANTAGE = return − value</text>
+                <rect x="60" y="182" width="180" height="36" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.4"/>
+                <text x="150" y="200" font-size="9.5" text-anchor="middle" fill="var(--flag)" font-weight="700">ADVANTAGE = return − value</text>
                 <text x="150" y="212" font-size="7.5" text-anchor="middle" fill="currentColor">updates actor + critic</text>
 
                 <defs>
@@ -1885,8 +1942,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,36 L150,54" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a13)"/>
 
-                <rect x="55" y="58" width="190" height="30" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="77" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">mDNS service discovery</text>
+                <rect x="55" y="58" width="190" height="30" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="77" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">mDNS service discovery</text>
 
                 <path d="M150,88 L150,106" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a13)"/>
 
@@ -1902,14 +1959,14 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M150,196 L150,220" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a13)"/>
                 <path d="M244,196 C244,206 244,212 244,220" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a13)"/>
 
-                <rect x="13" y="224" width="86" height="28" rx="3" fill="none" stroke="#e8b750" stroke-width="1.3"/>
-                <text x="56" y="242" font-size="8" text-anchor="middle" fill="#e8b750" textLength="42" lengthAdjust="spacingAndGlyphs">On/Off</text>
+                <rect x="13" y="224" width="86" height="28" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.3"/>
+                <text x="56" y="242" font-size="8" text-anchor="middle" fill="var(--gold)" textLength="42" lengthAdjust="spacingAndGlyphs">On/Off</text>
 
-                <rect x="107" y="224" width="86" height="28" rx="3" fill="none" stroke="#e8b750" stroke-width="1.3"/>
-                <text x="150" y="242" font-size="8" text-anchor="middle" fill="#e8b750" textLength="74" lengthAdjust="spacingAndGlyphs">Level Control</text>
+                <rect x="107" y="224" width="86" height="28" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.3"/>
+                <text x="150" y="242" font-size="8" text-anchor="middle" fill="var(--gold)" textLength="74" lengthAdjust="spacingAndGlyphs">Level Control</text>
 
-                <rect x="201" y="224" width="86" height="28" rx="3" fill="none" stroke="#e8b750" stroke-width="1.3"/>
-                <text x="244" y="242" font-size="8" text-anchor="middle" fill="#e8b750" textLength="48" lengthAdjust="spacingAndGlyphs">Identify</text>
+                <rect x="201" y="224" width="86" height="28" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.3"/>
+                <text x="244" y="242" font-size="8" text-anchor="middle" fill="var(--gold)" textLength="48" lengthAdjust="spacingAndGlyphs">Identify</text>
 
                 <defs>
                   <marker id="a13" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -1960,8 +2017,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,34 L150,52" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a14)"/>
 
-                <rect x="60" y="56" width="180" height="30" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="75" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">GC-content windows</text>
+                <rect x="60" y="56" width="180" height="30" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="75" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">GC-content windows</text>
 
                 <path d="M150,86 L150,104" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a14)"/>
 
@@ -1976,8 +2033,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,200 L150,212" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a14)"/>
 
-                <rect x="60" y="216" width="180" height="20" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4" opacity="0"/>
-                <text x="150" y="222" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">heart-disease risk prediction</text>
+                <rect x="60" y="216" width="180" height="20" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4" opacity="0"/>
+                <text x="150" y="222" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">heart-disease risk prediction</text>
 
                 <defs>
                   <marker id="a14" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -2033,12 +2090,12 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M170,34 C180,42 195,46 195,54" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a15)"/>
                 <path d="M200,34 C215,42 230,46 230,54" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a15)"/>
 
-                <rect x="10" y="58" width="130" height="42" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="75" y="76" font-size="8.5" text-anchor="middle" fill="#5eead4" font-weight="700">Selective mixing</text>
+                <rect x="10" y="58" width="130" height="42" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="75" y="76" font-size="8.5" text-anchor="middle" fill="var(--accent)" font-weight="700">Selective mixing</text>
                 <text x="75" y="88" font-size="7.5" text-anchor="middle" fill="currentColor">Hilbert + FIR</text>
 
-                <rect x="160" y="58" width="130" height="42" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="225" y="76" font-size="8.5" text-anchor="middle" fill="#5eead4" font-weight="700">DFT/IDFT</text>
+                <rect x="160" y="58" width="130" height="42" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="225" y="76" font-size="8.5" text-anchor="middle" fill="var(--accent)" font-weight="700">DFT/IDFT</text>
                 <text x="225" y="88" font-size="7.5" text-anchor="middle" fill="currentColor">from scratch</text>
 
                 <rect x="10" y="112" width="130" height="42" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/>
@@ -2054,8 +2111,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M75,100 C90,140 120,160 145,180" fill="none" stroke="currentColor" stroke-width=".8" opacity=".4" marker-end="url(#a15)"/>
                 <path d="M225,100 C210,140 180,160 155,180" fill="none" stroke="currentColor" stroke-width=".8" opacity=".4" marker-end="url(#a15)"/>
 
-                <rect x="55" y="184" width="190" height="34" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="204" font-size="8.5" text-anchor="middle" fill="#e8b750" font-weight="700" textLength="176" lengthAdjust="spacingAndGlyphs">one merged, reproducible notebook</text>
+                <rect x="55" y="184" width="190" height="34" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="204" font-size="8.5" text-anchor="middle" fill="var(--gold)" font-weight="700" textLength="176" lengthAdjust="spacingAndGlyphs">one merged, reproducible notebook</text>
 
                 <defs>
                   <marker id="a15" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -2109,8 +2166,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,34 L150,52" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a16)"/>
 
-                <rect x="55" y="56" width="190" height="30" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="75" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">similarity graph (k-NN)</text>
+                <rect x="55" y="56" width="190" height="30" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="75" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">similarity graph (k-NN)</text>
 
                 <path d="M150,86 L150,104" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a16)"/>
 
@@ -2124,13 +2181,13 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,190 L150,208" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a16)"/>
 
-                <rect x="65" y="212" width="170" height="30" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
-                <text x="150" y="231" font-size="9.5" text-anchor="middle" fill="#e2735a" font-weight="700">k-means in eigenspace</text>
+                <rect x="65" y="212" width="170" height="30" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.4"/>
+                <text x="150" y="231" font-size="9.5" text-anchor="middle" fill="var(--flag)" font-weight="700">k-means in eigenspace</text>
 
                 <path d="M150,242 L150,260" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a16)"/>
 
-                <rect x="45" y="264" width="210" height="28" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="282" font-size="8" text-anchor="middle" fill="#e8b750" font-weight="700" textLength="198" lengthAdjust="spacingAndGlyphs">separated clusters (incl. concentric circles)</text>
+                <rect x="45" y="264" width="210" height="28" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="282" font-size="8" text-anchor="middle" fill="var(--gold)" font-weight="700" textLength="198" lengthAdjust="spacingAndGlyphs">separated clusters (incl. concentric circles)</text>
 
                 <defs>
                   <marker id="a16" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -2181,8 +2238,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,34 L150,52" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a17)"/>
 
-                <rect x="70" y="56" width="160" height="28" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="74" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">EDA</text>
+                <rect x="70" y="56" width="160" height="28" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="74" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">EDA</text>
 
                 <path d="M110,84 C90,94 70,98 70,106" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a17)"/>
                 <path d="M190,84 C210,94 230,98 230,106" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a17)"/>
@@ -2196,8 +2253,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M70,142 C90,156 130,162 145,168" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a17)"/>
                 <path d="M230,142 C210,156 170,162 155,168" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a17)"/>
 
-                <rect x="55" y="172" width="190" height="30" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="191" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">genre classification</text>
+                <rect x="55" y="172" width="190" height="30" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="191" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">genre classification</text>
 
                 <defs>
                   <marker id="a17" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -2249,19 +2306,19 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M120,34 C100,44 80,48 80,56" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a18)"/>
                 <path d="M180,34 C200,44 220,48 220,56" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a18)"/>
 
-                <rect x="20" y="60" width="120" height="36" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="80" y="78" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">SVD</text>
+                <rect x="20" y="60" width="120" height="36" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="80" y="78" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">SVD</text>
                 <text x="80" y="90" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="108" lengthAdjust="spacingAndGlyphs">low-rank approximation</text>
 
-                <rect x="160" y="60" width="120" height="36" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="220" y="78" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">FFT</text>
+                <rect x="160" y="60" width="120" height="36" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="220" y="78" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">FFT</text>
                 <text x="220" y="90" font-size="7.5" text-anchor="middle" fill="currentColor" textLength="112" lengthAdjust="spacingAndGlyphs">frequency-domain filtering</text>
 
                 <path d="M80,96 C100,110 130,116 145,122" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a18)"/>
                 <path d="M220,96 C200,110 170,116 155,122" fill="none" stroke="currentColor" stroke-width="1" marker-end="url(#a18)"/>
 
-                <rect x="65" y="126" width="170" height="30" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="145" font-size="8.5" text-anchor="middle" fill="#e8b750" font-weight="700" textLength="158" lengthAdjust="spacingAndGlyphs">reconstructed / filtered image</text>
+                <rect x="65" y="126" width="170" height="30" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="145" font-size="8.5" text-anchor="middle" fill="var(--gold)" font-weight="700" textLength="158" lengthAdjust="spacingAndGlyphs">reconstructed / filtered image</text>
 
                 <defs>
                   <marker id="a18" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -2312,8 +2369,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,34 L150,52" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a19)"/>
 
-                <rect x="55" y="56" width="190" height="30" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="75" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">student arrival event</text>
+                <rect x="55" y="56" width="190" height="30" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="75" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">student arrival event</text>
 
                 <path d="M150,86 L150,104" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a19)"/>
 
@@ -2329,8 +2386,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,190 L150,208" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a19)"/>
 
-                <rect x="40" y="212" width="220" height="34" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="232" font-size="9" text-anchor="middle" fill="#e8b750" font-weight="700">reduced travel time vs. baseline</text>
+                <rect x="40" y="212" width="220" height="34" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="232" font-size="9" text-anchor="middle" fill="var(--gold)" font-weight="700">reduced travel time vs. baseline</text>
 
                 <defs>
                   <marker id="a19" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -2381,8 +2438,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,34 L150,52" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a20)"/>
 
-                <rect x="80" y="56" width="140" height="30" rx="3" fill="none" stroke="#5eead4" stroke-width="1.3"/>
-                <text x="150" y="75" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">VIEW</text>
+                <rect x="80" y="56" width="140" height="30" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.3"/>
+                <text x="150" y="75" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">VIEW</text>
 
                 <path d="M150,86 L150,104" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a20)"/>
 
@@ -2391,8 +2448,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,142 L150,160" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a20)"/>
 
-                <rect x="60" y="164" width="180" height="34" rx="3" fill="none" stroke="#e8b750" stroke-width="1.4"/>
-                <text x="150" y="182" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">MODEL</text>
+                <rect x="60" y="164" width="180" height="34" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.4"/>
+                <text x="150" y="182" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">MODEL</text>
                 <text x="150" y="193" font-size="7.5" text-anchor="middle" fill="currentColor">book inventory + orders</text>
 
                 <path d="M230,142 C250,150 250,160 220,166" fill="none" stroke="currentColor" stroke-width="1" opacity=".6" marker-end="url(#a20)"/>
@@ -2451,8 +2508,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,38 L150,56" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a21)"/>
 
-                <rect x="45" y="60" width="210" height="40" rx="3" fill="none" stroke="#5eead4" stroke-width="1.4"/>
-                <text x="150" y="76" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">PREPROCESSING</text>
+                <rect x="45" y="60" width="210" height="40" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+                <text x="150" y="76" font-size="9" text-anchor="middle" fill="var(--accent)" font-weight="700">PREPROCESSING</text>
                 <text x="150" y="90" font-size="8" text-anchor="middle" fill="currentColor" textLength="188" lengthAdjust="spacingAndGlyphs">notch · 0.5–30 Hz Butterworth · normalize</text>
 
                 <path d="M150,100 L150,118" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a21)"/>
@@ -2463,20 +2520,20 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,166 L150,184" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a21)"/>
 
-                <rect x="40" y="188" width="220" height="44" rx="3" fill="none" stroke="#e8b750" stroke-width="1.5"/>
-                <text x="150" y="204" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">LEAVE-ONE-SUBJECT-OUT</text>
-                <text x="150" y="218" font-size="8" text-anchor="middle" fill="#e8b750" textLength="196" lengthAdjust="spacingAndGlyphs">18 folds · held-out driver never seen in training</text>
+                <rect x="40" y="188" width="220" height="44" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+                <text x="150" y="204" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">LEAVE-ONE-SUBJECT-OUT</text>
+                <text x="150" y="218" font-size="8" text-anchor="middle" fill="var(--gold)" textLength="196" lengthAdjust="spacingAndGlyphs">18 folds · held-out driver never seen in training</text>
 
                 <path d="M110,232 C95,248 81,252 81,262" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a21)"/>
                 <path d="M190,232 C205,248 221,252 221,262" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a21)"/>
 
-                <rect x="15" y="266" width="132" height="44" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
-                <text x="81" y="283" font-size="8.5" text-anchor="middle" fill="#e2735a" font-weight="700" textLength="112" lengthAdjust="spacingAndGlyphs">SPECIALIST TRANSFER</text>
-                <text x="81" y="297" font-size="7.5" text-anchor="middle" fill="#e2735a" textLength="104" lengthAdjust="spacingAndGlyphs">signal present in cohort</text>
+                <rect x="15" y="266" width="132" height="44" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.4"/>
+                <text x="81" y="283" font-size="8.5" text-anchor="middle" fill="var(--flag)" font-weight="700" textLength="112" lengthAdjust="spacingAndGlyphs">SPECIALIST TRANSFER</text>
+                <text x="81" y="297" font-size="7.5" text-anchor="middle" fill="var(--flag)" textLength="104" lengthAdjust="spacingAndGlyphs">signal present in cohort</text>
 
-                <rect x="155" y="266" width="132" height="44" rx="3" fill="none" stroke="#e2735a" stroke-width="1.4"/>
-                <text x="221" y="283" font-size="8.5" text-anchor="middle" fill="#e2735a" font-weight="700" textLength="96" lengthAdjust="spacingAndGlyphs">FEW-SHOT ROUTE</text>
-                <text x="221" y="297" font-size="7.5" text-anchor="middle" fill="#e2735a" textLength="104" lengthAdjust="spacingAndGlyphs">brief target calibration</text>
+                <rect x="155" y="266" width="132" height="44" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.4"/>
+                <text x="221" y="283" font-size="8.5" text-anchor="middle" fill="var(--flag)" font-weight="700" textLength="96" lengthAdjust="spacingAndGlyphs">FEW-SHOT ROUTE</text>
+                <text x="221" y="297" font-size="7.5" text-anchor="middle" fill="var(--flag)" textLength="104" lengthAdjust="spacingAndGlyphs">brief target calibration</text>
 
                 <defs>
                   <marker id="a21" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -2538,8 +2595,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
                 <path d="M75,44 C85,58 120,62 142,68" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a22)"/>
                 <path d="M225,44 C215,58 180,62 158,68" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a22)"/>
 
-                <rect x="40" y="72" width="220" height="40" rx="3" fill="none" stroke="#5eead4" stroke-width="1.4"/>
-                <text x="150" y="88" font-size="9" text-anchor="middle" fill="#5eead4" font-weight="700">PRECISION SWEEP</text>
+                <rect x="40" y="72" width="220" height="40" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+                <text x="150" y="88" font-size="9" text-anchor="middle" fill="var(--accent)" font-weight="700">PRECISION SWEEP</text>
                 <text x="150" y="102" font-size="8" text-anchor="middle" fill="currentColor">FP32 · FP16 · INT8 · ONNX</text>
 
                 <path d="M150,112 L150,130" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a22)"/>
@@ -2552,15 +2609,15 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,180 L150,198" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a22)"/>
 
-                <rect x="45" y="202" width="210" height="46" rx="3" fill="none" stroke="#e8b750" stroke-width="1.5"/>
-                <text x="150" y="219" font-size="9.5" text-anchor="middle" fill="#e8b750" font-weight="700">ENERGY-ACCURACY SCORE</text>
-                <text x="150" y="234" font-size="8" text-anchor="middle" fill="#e8b750" textLength="180" lengthAdjust="spacingAndGlyphs">EAS = Acc^α / (Energy^β × Latency^γ)</text>
+                <rect x="45" y="202" width="210" height="46" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+                <text x="150" y="219" font-size="9.5" text-anchor="middle" fill="var(--gold)" font-weight="700">ENERGY-ACCURACY SCORE</text>
+                <text x="150" y="234" font-size="8" text-anchor="middle" fill="var(--gold)" textLength="180" lengthAdjust="spacingAndGlyphs">EAS = Acc^α / (Energy^β × Latency^γ)</text>
 
                 <path d="M150,248 L150,266" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a22)"/>
 
-                <rect x="30" y="270" width="240" height="46" rx="3" fill="none" stroke="#e2735a" stroke-width="1.5"/>
-                <text x="150" y="287" font-size="9" text-anchor="middle" fill="#e2735a" font-weight="700">PARETO FRONTIER · 5 SEEDS</text>
-                <text x="150" y="301" font-size="7.5" text-anchor="middle" fill="#e2735a" textLength="212" lengthAdjust="spacingAndGlyphs">Wilcoxon · Bonferroni · Cohen's d · cross-hardware</text>
+                <rect x="30" y="270" width="240" height="46" rx="3" fill="none" stroke="var(--flag)" stroke-width="1.5"/>
+                <text x="150" y="287" font-size="9" text-anchor="middle" fill="var(--flag)" font-weight="700">PARETO FRONTIER · 5 SEEDS</text>
+                <text x="150" y="301" font-size="7.5" text-anchor="middle" fill="var(--flag)" textLength="212" lengthAdjust="spacingAndGlyphs">Wilcoxon · Bonferroni · Cohen's d · cross-hardware</text>
 
                 <defs>
                   <marker id="a22" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -2610,8 +2667,8 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
             <div class="pinnote hand">a newborn brain is not a blank slate, and there is no obvious reason a network should be either. Initialization is usually treated as a variance problem — but it is really the only prior the model has before the first gradient arrives.</div>
             <figure class="svgwrap">
               <svg viewBox="0 0 300 300" role="img" aria-label="Diagram: innate brain structure informs two parallel directions — neuroscience-inspired initialization schemes for feedforward networks, and recurrent networks whose initialization models early cognitive behaviour — both grounded in a review of classical initialization theory." class="diagram-ink" style="width:100%;height:auto;">
-                <rect x="55" y="6" width="190" height="38" rx="3" fill="none" stroke="#5eead4" stroke-width="1.4"/>
-                <text x="150" y="22" font-size="9.5" text-anchor="middle" fill="#5eead4" font-weight="700">INNATE BRAIN STRUCTURE</text>
+                <rect x="55" y="6" width="190" height="38" rx="3" fill="none" stroke="var(--accent)" stroke-width="1.4"/>
+                <text x="150" y="22" font-size="9.5" text-anchor="middle" fill="var(--accent)" font-weight="700">INNATE BRAIN STRUCTURE</text>
                 <text x="150" y="35" font-size="8" text-anchor="middle" fill="currentColor" textLength="170" lengthAdjust="spacingAndGlyphs">computation available before learning</text>
 
                 <path d="M110,44 C90,58 70,64 70,74" fill="none" stroke="currentColor" stroke-width="1.1" marker-end="url(#a23)"/>
@@ -2637,9 +2694,9 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 
                 <path d="M150,214 L150,232" fill="none" stroke="currentColor" stroke-width="1.2" marker-end="url(#a23)"/>
 
-                <rect x="40" y="236" width="220" height="46" rx="3" fill="none" stroke="#e8b750" stroke-width="1.5"/>
-                <text x="150" y="254" font-size="9" text-anchor="middle" fill="#e8b750" font-weight="700">THE WEIGHTS AS A PRIOR</text>
-                <text x="150" y="268" font-size="7.5" text-anchor="middle" fill="#e8b750" textLength="196" lengthAdjust="spacingAndGlyphs">what the network knows before it learns anything</text>
+                <rect x="40" y="236" width="220" height="46" rx="3" fill="none" stroke="var(--gold)" stroke-width="1.5"/>
+                <text x="150" y="254" font-size="9" text-anchor="middle" fill="var(--gold)" font-weight="700">THE WEIGHTS AS A PRIOR</text>
+                <text x="150" y="268" font-size="7.5" text-anchor="middle" fill="var(--gold)" textLength="196" lengthAdjust="spacingAndGlyphs">what the network knows before it learns anything</text>
 
                 <defs>
                   <marker id="a23" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
@@ -3449,6 +3506,36 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
   window.addEventListener('load', sizeContactPortraits);
   window.addEventListener('resize', sizeContactPortraits);
   window.__sizeContactPortraits = sizeContactPortraits;
+
+  // ---------- theme toggle ----------
+  // Dark is the default and the page's identity; light is opt-in. The choice is
+  // remembered per browser, and storage is wrapped because a private window or
+  // blocked site data makes localStorage throw rather than return null.
+  (function(){
+    var root = document.documentElement;
+    var btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    var KEY = 'sb-portfolio-theme';
+    function stored(){
+      try { return localStorage.getItem(KEY); } catch(e){ return null; }
+    }
+    function remember(v){
+      try { localStorage.setItem(KEY, v); } catch(e){}
+    }
+    function apply(theme){
+      if (theme === 'light') root.setAttribute('data-theme','light');
+      else root.removeAttribute('data-theme');
+      var toLight = theme !== 'light';
+      btn.setAttribute('aria-label', toLight ? 'Switch to light theme' : 'Switch to dark theme');
+      btn.setAttribute('title', toLight ? 'Switch to light theme' : 'Switch to dark theme');
+    }
+    apply(stored() === 'light' ? 'light' : 'dark');
+    btn.addEventListener('click', function(){
+      var next = root.getAttribute('data-theme') === 'light' ? 'dark' : 'light';
+      apply(next);
+      remember(next);
+    });
+  })();
 
   var blinkOn = true;
   setInterval(function(){
