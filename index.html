@@ -567,6 +567,7 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
 .skill-group h3{margin:0 0 6px;font-size:.88em;color:var(--text-dim);font-weight:400;letter-spacing:.03em;text-transform:uppercase;}
 .chips{display:flex;flex-wrap:wrap;gap:6px;}
 .chip{border:1px solid var(--border-bright);padding:3px 9px;font-size:.84em;color:var(--text);}
+.chip .skill-cat{color:var(--text-dim);}
 .chip.strong{border-color:var(--accent);color:var(--accent-strong);}
 
 /* ---------- console bar ---------- */
@@ -870,40 +871,51 @@ td .tag{display:inline-block;font-size:.82em;color:var(--accent);border:1px soli
       <div class="prompt-line"><span class="path-seg">sina@research:~$</span> <span class="cmd">show skills</span></div>
       <div class="out">
         <div class="skill-group">
-          <h3>NLP &amp; LLMs</h3>
+          <h3>Machine Learning</h3>
           <div class="chips">
-            <span class="chip strong">Transformers</span><span class="chip strong">RAG</span><span class="chip strong">LLM Fine-tuning</span>
-            <span class="chip">Encoders</span><span class="chip">Decoders</span><span class="chip">Attention Mechanism</span><span class="chip">Fusion Methods</span>
-            <span class="chip">Vision-Language Models</span><span class="chip">Genomic Language Models</span><span class="chip">Chemical Language Models</span>
-            <span class="chip">QA</span><span class="chip">NER</span><span class="chip">MLM</span><span class="chip">Crawling</span>
-            <span class="chip">LLM Benchmarking</span><span class="chip">Prompt Engineering</span><span class="chip">Prompt Tuning</span>
+            <span class="chip">(Un)supervised Learning</span><span class="chip">Self/Semi-supervised Learning</span><span class="chip">Contrastive Learning</span><span class="chip">Online Learning</span><span class="chip">Optimization Alg.s (GA, SA, PSO, ...)</span><span class="chip">Feature Engineering/Selection</span><span class="chip">Dimensionality Reduction</span><span class="chip">Ensemble Learning Methods</span><span class="chip">Loss Function Engineering</span>
           </div>
         </div>
         <div class="skill-group">
-          <h3>ML &amp; DL</h3>
+          <h3>Deep Learning</h3>
           <div class="chips">
-            <span class="chip strong">Applied ML in healthcare/biology</span><span class="chip strong">Reinforcement Learning</span><span class="chip strong">Knowledge Graphs</span>
-            <span class="chip">Representation &amp; Probabilistic Modeling</span><span class="chip">Representation Learning</span><span class="chip">Multimodality</span><span class="chip">Neural Networks</span>
-            <span class="chip">Supervised / Unsupervised / Self-Supervised Learning</span><span class="chip">Clustering</span>
-            <span class="chip">Applied DL in Cognitive Sciences</span><span class="chip">Applied Representation Learning in Programming Languages</span>
-            <span class="chip">Neural Embeddings</span><span class="chip">Multitask Learning</span><span class="chip">Contrastive Learning</span>
+            <span class="chip">Various Network Architectures</span><span class="chip strong">Representation Learning</span><span class="chip">Transfer Learning</span><span class="chip strong">Multimodal Fusion</span><span class="chip">Deep Reinforcement Learning</span><span class="chip strong">Transformers &amp; Attention</span><span class="chip">Fine-tuning Strategies</span><span class="chip">Domain Adaptation</span><span class="chip">Regularization Methods</span><span class="chip">Model Compression &amp; Quantization</span>
           </div>
         </div>
         <div class="skill-group">
-          <h3>Bioinformatics</h3>
+          <h3>Natural Language Processing</h3>
           <div class="chips">
-            <span class="chip">Microarray / RNA-seq</span><span class="chip">Pathway enrichment</span><span class="chip">Biomedical Image Processing</span>
-            <span class="chip">Sequence alignment (MSA/BLAST)</span><span class="chip">Chemical &amp; microbial LMs (SMILES, PATRIC)</span>
-            <span class="chip">Biopython / Bioconductor / GEO / GenBank</span>
+            <span class="chip strong">Retrieval-Augmented Generation</span><span class="chip">Multimodality</span><span class="chip">Tokenization Methods</span><span class="chip">Embedding Methods</span><span class="chip strong">Multimodal RAG/QA</span><span class="chip">NLP Tasks (QA, NER, MLM, Parsing ...)</span><span class="chip strong">Large Language Models</span><span class="chip">Benchmarking &amp; Evaluation</span><span class="chip">Information Retrieval</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Applied ML/DL/NLP</h3>
+          <div class="chips">
+            <span class="chip">Biomedical Image Processing</span><span class="chip strong">Genomic Language Models</span><span class="chip strong">Chemical Language Models</span><span class="chip">EEG Signal Processing</span><span class="chip">Neuro-inspired NN Initialization</span><span class="chip">Cross-Subject EEG Decoding</span><span class="chip">Radiology Report Generation</span><span class="chip">Gene Expression Analysis</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Knowledge Graphs</h3>
+          <div class="chips">
+            <span class="chip strong">Relation Modeling</span><span class="chip">KG Refinement</span><span class="chip">Entity/Relation Extraction</span><span class="chip">Graph Inference Methods</span><span class="chip">KG Embeddings</span><span class="chip strong">Cypher Query</span><span class="chip">GNN/GCN/MPNN</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>AI/ML for SE</h3>
+          <div class="chips">
+            <span class="chip strong">Just-In-Time Defect Prediction</span><span class="chip strong">Software Knowledge Graphs</span><span class="chip">Code Representations</span><span class="chip">Automated Debugging</span><span class="chip">Commit-level Analysis</span><span class="chip">Code Embedding Models</span><span class="chip">LLMs for Code</span>
+          </div>
+        </div>
+        <div class="skill-group">
+          <h3>Libraries &amp; Frameworks</h3>
+          <div class="chips">
+            <span class="chip strong"><span class="skill-cat">Graph DB:</span> Neo4j, Cypher, Py2neo</span><span class="chip strong"><span class="skill-cat">Deep Learning:</span> PyTorch, PyG</span><span class="chip strong"><span class="skill-cat">LLMs:</span> Hugging Face, PEFT</span><span class="chip"><span class="skill-cat">Retrieval:</span> FAISS, OpenCLIP</span><span class="chip"><span class="skill-cat">Vision:</span> InsightFace, OpenCV</span><span class="chip"><span class="skill-cat">Classical ML:</span> scikit-learn, XGBoost</span><span class="chip"><span class="skill-cat">Data:</span> NumPy, Pandas, SciPy</span><span class="chip"><span class="skill-cat">Efficiency:</span> ONNX Runtime, bitsandbytes</span><span class="chip"><span class="skill-cat">Bioinformatics:</span> Biopython, Bioconductor</span><span class="chip"><span class="skill-cat">Graphs &amp; Plots:</span> NetworkX, Matplotlib</span><span class="chip"><span class="skill-cat">RL:</span> OpenAI Gym</span>
           </div>
         </div>
         <div class="skill-group">
           <h3>Languages &amp; Tools</h3>
           <div class="chips">
-            <span class="chip">Python</span><span class="chip">Java</span><span class="chip">C++</span><span class="chip">C</span><span class="chip">R</span><span class="chip">JavaScript</span>
-            <span class="chip">HTML/CSS · Django · Flask · PHP</span>
-            <span class="chip">English — TOEFL iBT 111</span>
-            <span class="chip">LaTeX / EndNote / PowerPoint</span>
+            <span class="chip">Python</span><span class="chip">Java</span><span class="chip">C++</span><span class="chip">C</span><span class="chip">R</span><span class="chip">JavaScript</span><span class="chip">HTML/CSS · Django · Flask · PHP</span><span class="chip">English — TOEFL iBT 111</span><span class="chip">LaTeX / EndNote / PowerPoint</span>
           </div>
         </div>
       </div>
